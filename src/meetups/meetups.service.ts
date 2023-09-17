@@ -4,12 +4,12 @@ import { TagsService } from 'src/tags/tags.service';
 import { meetupSortQueryValues } from './constants/sorts';
 import { MeetupsRepository } from './meetups.repository';
 
+import type { User } from 'src/shared-models/users.model';
 import type { CreateMeetupDto } from './dto/create-meetup.dto';
 import type { UpdateMeetupDto } from './dto/update-meetup.dto';
 import type { AddTagDto } from './dto/add-tag.dto';
 import type { SignUserToMeetupDto } from './dto/sign-user-to-meetup.dto';
 import type { MeetupQueryValueType } from './constants/sorts';
-import { User } from 'src/shared-models/users.model';
 
 @Injectable()
 export class MeetupsService {

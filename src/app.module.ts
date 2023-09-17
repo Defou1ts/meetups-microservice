@@ -1,16 +1,18 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { APP_FILTER } from '@nestjs/core';
 
 import { postgresConfigRegister } from './config/postgres.config';
-
-import type { PostgresConfig } from './config/postgres.config';
 import { Meetup } from './meetups/models/meetups.model';
 import { Role } from './shared-models/roles.model';
 import { UserMeetups } from './meetups/models/user-meetups.model';
 import { MeetupTags } from './tags/models/meetup-tags';
 import { Tag } from './tags/models/tags.model';
 import { User } from './shared-models/users.model';
+import { HttpExceptionFilter } from './exceptions/rpc.exception.filter';
+
+import type { PostgresConfig } from './config/postgres.config';
 
 @Module({
 	imports: [
@@ -34,6 +36,11 @@ import { User } from './shared-models/users.model';
 		}),
 	],
 	controllers: [],
-	providers: [],
+	providers: [
+		{
+			provide: APP_FILTER,
+			useClass: HttpExceptionFilter,
+		},
+	],
 })
 export class AppModule {}
