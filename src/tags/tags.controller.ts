@@ -8,13 +8,15 @@ import { TagsService } from './tags.service';
 export class TagsController {
 	constructor(private readonly tagsService: TagsService) {}
 
-	@MessagePattern('/tags/create')
+	@MessagePattern('tags/create')
 	async create(@Payload() dto: CreateTagDto) {
+		console.log('tags/create', dto);
 		return await this.tagsService.createTag(dto);
 	}
 
-	@MessagePattern('/tags/getAll')
+	@MessagePattern('tags/getAll')
 	async getAll() {
+		console.log('tags/getAll');
 		return await this.tagsService.getAllTags();
 	}
 }

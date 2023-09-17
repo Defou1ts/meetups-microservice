@@ -11,6 +11,8 @@ import { MeetupTags } from './tags/models/meetup-tags';
 import { Tag } from './tags/models/tags.model';
 import { User } from './shared-models/users.model';
 import { HttpExceptionFilter } from './exceptions/rpc.exception.filter';
+import { TagsModule } from './tags/tags.module';
+import { MeetupsModule } from './meetups/meetups.module';
 
 import type { PostgresConfig } from './config/postgres.config';
 
@@ -18,7 +20,6 @@ import type { PostgresConfig } from './config/postgres.config';
 	imports: [
 		ConfigModule.forRoot({
 			isGlobal: true,
-			envFilePath: `.env`,
 			load: [postgresConfigRegister],
 		}),
 		SequelizeModule.forRootAsync({
@@ -34,6 +35,8 @@ import type { PostgresConfig } from './config/postgres.config';
 				autoLoadModels: true,
 			}),
 		}),
+		TagsModule,
+		MeetupsModule,
 	],
 	controllers: [],
 	providers: [
