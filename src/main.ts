@@ -12,8 +12,8 @@ async function bootstrap() {
 			urls: [
 				{
 					protocol: 'amqp',
-					username: process.env.RABBIT_MQ_USER,
-					password: process.env.RABBIT_MQ_PASSWORD,
+					username: process.env.RABBITMQ_DEFAULT_USER,
+					password: process.env.RABBITMQ_DEFAULT_PASS,
 					hostname: process.env.RABBIT_MQ_HOST,
 					port: Number(process.env.RABBIT_MQ_PORT),
 				},
