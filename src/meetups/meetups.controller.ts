@@ -8,10 +8,19 @@ import { AddTagDto } from './dto/add-tag.dto';
 import { UpdateMeetupDto } from './dto/update-meetup.dto';
 import { CreateMeetupDto } from './dto/create-meetup.dto';
 import { MeetupsService } from './meetups.service';
+import { MeetupsSearchService } from './meetups-search.service';
 
 @Controller()
 export class MeetupsController {
-	constructor(private readonly meetupsService: MeetupsService) {}
+	constructor(
+		private readonly meetupsService: MeetupsService,
+		private readonly meetupsSearchService: MeetupsSearchService,
+	) {}
+
+	@MessagePattern('meetups/searchByName')
+	async searchByName(@Payload('name') name: string) {
+		return await this.meetupsSearchService.searchByName(name);
+	}
 
 	@MessagePattern('meetups/getAll')
 	async getAll(

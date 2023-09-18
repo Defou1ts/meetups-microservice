@@ -13,6 +13,7 @@ import { User } from './shared-models/users.model';
 import { HttpExceptionFilter } from './exceptions/rpc.exception.filter';
 import { TagsModule } from './tags/tags.module';
 import { MeetupsModule } from './meetups/meetups.module';
+import { elasticConfigRegister } from './config/elastic.config';
 
 import type { PostgresConfig } from './config/postgres.config';
 
@@ -20,7 +21,7 @@ import type { PostgresConfig } from './config/postgres.config';
 	imports: [
 		ConfigModule.forRoot({
 			isGlobal: true,
-			load: [postgresConfigRegister],
+			load: [postgresConfigRegister, elasticConfigRegister],
 		}),
 		SequelizeModule.forRootAsync({
 			inject: [postgresConfigRegister.KEY],
