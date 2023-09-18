@@ -23,10 +23,12 @@ export class MeetupsService {
 		take: number = 10,
 		skip: number = 0,
 		sortBy: MeetupQueryValueType = 'ascending',
+		latitude?: number,
+		longitude?: number,
 	) {
 		if (!meetupSortQueryValues.includes(sortBy)) throw new BadRequestException();
 
-		return await this.meetupsRepository.getAllByParams(name, take, skip, sortBy);
+		return await this.meetupsRepository.getAllByParams(name, take, skip, sortBy, latitude, longitude);
 	}
 
 	async getMeetupById(id: number) {

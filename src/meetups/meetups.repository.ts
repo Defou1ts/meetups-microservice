@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Op } from 'sequelize';
+import { geoDistance } from 'src/helpers/getGeodistance';
 
 import { Meetup } from './models/meetups.model';
 import { meetupSortTypes } from './constants/sorts';
@@ -20,16 +21,31 @@ export class MeetupsRepository {
 		return await this.meetupsModel.create(dto);
 	}
 
-	async getAllByParams(name: string | undefined, take: number = 10, skip: number = 0, sortBy: MeetupQueryValueType) {
+	async getAllByParams(
+		name: string | undefined,
+		take: number = 10,
+		skip: number = 0,
+		sortBy: MeetupQueryValueType,
+		latitude?: number,
+		longitude?: number,
+	) {
 		const sortType = meetupSortTypes[sortBy];
 
 		const whereCondition = name ? { name: { [Op.like]: `%${name.toLowerCase()}%` } } : {};
 
-		return await this.meetupsModel.findAll({
+		const meetups = await this.meetupsModel.findAll({
 			where: whereCondition,
 			limit: take,
 			offset: skip,
 			order: [['name', sortType]],
 		});
+
+		if (latitude && longitude) {
+			return meetups.filter(
+				(meetup) => geoDistance(latitude, longitude, meetup.latitude, meetup.longitude) < 1000000,
+			);
+		}
+
+		return meetups;
 	}
 }

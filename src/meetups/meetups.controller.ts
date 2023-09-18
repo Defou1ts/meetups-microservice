@@ -28,8 +28,10 @@ export class MeetupsController {
 		@Payload('take') take: number,
 		@Payload('skip') skip: number,
 		@Payload('sortBy') sortBy: MeetupQueryValueType,
+		@Payload('latitude') latitude: number,
+		@Payload('longitude') longitude: number,
 	) {
-		return await this.meetupsService.getAllMeetups(name, take, skip, sortBy);
+		return await this.meetupsService.getAllMeetups(name, take, skip, sortBy, latitude, longitude);
 	}
 
 	@MessagePattern('meetups/getById')
