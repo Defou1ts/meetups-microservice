@@ -1,8 +1,9 @@
 import { BelongsToMany, Column, DataType, Model, Table } from 'sequelize-typescript';
 import { MeetupTags } from 'src/tags/models/meetup-tags';
 import { Tag } from 'src/tags/models/tags.model';
-import { UserMeetups } from './user-meetups.model';
 import { User } from 'src/shared-models/users.model';
+
+import { UserMeetups } from './user-meetups.model';
 
 interface MeetupCreationAttrs {
 	name: string;
@@ -22,8 +23,11 @@ export class Meetup extends Model<Meetup, MeetupCreationAttrs> {
 	@Column({ type: DataType.STRING, unique: false, allowNull: false })
 	description: string;
 
-	@Column({ type: DataType.STRING, unique: false, allowNull: false })
-	location: string;
+	@Column({ type: DataType.DOUBLE, unique: false, allowNull: false })
+	latitude: number;
+
+	@Column({ type: DataType.DOUBLE, unique: false, allowNull: false })
+	longitude: number;
 
 	@Column({ type: DataType.DATE, unique: false, allowNull: false })
 	date: Date;

@@ -1,15 +1,7 @@
-import { IsDateString, IsString } from 'class-validator';
-
 export class CreateMeetupDto {
-	@IsString()
 	name: string;
-
-	@IsString()
 	description: string;
-
-	@IsString()
-	location: string;
-
-	@IsDateString()
+	latitude: number;
+	longitude: number;
 	date: Date;
 }
