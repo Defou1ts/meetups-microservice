@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { TagsService } from 'src/tags/tags.service';
 import { PdfService } from 'src/pdf/pdf.service';
+import { CsvService } from 'src/csv/csv.service';
 
 import { meetupSortQueryValues } from './constants/sorts';
 import { MeetupsRepository } from './meetups.repository';
@@ -18,6 +19,7 @@ export class MeetupsService {
 		private readonly meetupsRepository: MeetupsRepository,
 		private readonly tagsService: TagsService,
 		private readonly pdfService: PdfService,
+		private readonly csvService: CsvService,
 	) {}
 
 	async getAllMeetups(
@@ -91,5 +93,10 @@ export class MeetupsService {
 			headers: ['Name', 'Description'],
 			rows,
 		});
+	}
+
+	async getMeetupsCSVFile() {
+		const meetups = await this.meetupsRepository.getAll();
+		return this.csvService.generateMeetupsCsv(meetups);
 	}
 }

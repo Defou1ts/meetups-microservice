@@ -68,4 +68,11 @@ export class MeetupsController {
 	async getPdf() {
 		return await this.meetupsService.getMeetupsPdfFile();
 	}
+
+	@MessagePattern('meetups/csv')
+	async getCsv() {
+		const csvString = await this.meetupsService.getMeetupsCSVFile();
+		console.log(csvString);
+		return csvString;
+	}
 }

@@ -14,6 +14,7 @@ import { HttpExceptionFilter } from './exceptions/rpc.exception.filter';
 import { TagsModule } from './tags/tags.module';
 import { MeetupsModule } from './meetups/meetups.module';
 import { elasticConfigRegister } from './config/elastic.config';
+import { CsvModule } from './csv/csv.module';
 
 import type { PostgresConfig } from './config/postgres.config';
 
@@ -38,6 +39,7 @@ import type { PostgresConfig } from './config/postgres.config';
 		}),
 		TagsModule,
 		MeetupsModule,
+		CsvModule,
 	],
 	controllers: [],
 	providers: [

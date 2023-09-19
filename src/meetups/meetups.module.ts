@@ -7,6 +7,7 @@ import { User } from 'src/shared-models/users.model';
 import { ElasticsearchModule } from '@nestjs/elasticsearch';
 import { elasticConfigRegister } from 'src/config/elastic.config';
 import { PdfModule } from 'src/pdf/pdf.module';
+import { CsvModule } from 'src/csv/csv.module';
 
 import { UserMeetups } from './models/user-meetups.model';
 import { MeetupsRepository } from './meetups.repository';
@@ -22,6 +23,7 @@ import type { ElasticConfig } from 'src/config/elastic.config';
 	controllers: [MeetupsController],
 	imports: [
 		PdfModule,
+		CsvModule,
 		SequelizeModule.forFeature([Meetup, Tag, MeetupTags, User, UserMeetups]),
 		TagsModule,
 		ElasticsearchModule.registerAsync({
