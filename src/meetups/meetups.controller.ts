@@ -72,7 +72,6 @@ export class MeetupsController {
 	@MessagePattern('meetups/csv')
 	async getCsv() {
 		const csvString = await this.meetupsService.getMeetupsCSVFile();
-		console.log(csvString);
 		return csvString;
 	}
 }
