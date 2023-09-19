@@ -21,6 +21,10 @@ export class MeetupsRepository {
 		return await this.meetupsModel.create(dto);
 	}
 
+	async getAll() {
+		return await this.meetupsModel.findAll();
+	}
+
 	async getAllByParams(
 		name: string | undefined,
 		take: number = 10,

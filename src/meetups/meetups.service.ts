@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { TagsService } from 'src/tags/tags.service';
+import { PdfService } from 'src/pdf/pdf.service';
 
 import { meetupSortQueryValues } from './constants/sorts';
 import { MeetupsRepository } from './meetups.repository';
@@ -16,6 +17,7 @@ export class MeetupsService {
 	constructor(
 		private readonly meetupsRepository: MeetupsRepository,
 		private readonly tagsService: TagsService,
+		private readonly pdfService: PdfService,
 	) {}
 
 	async getAllMeetups(
@@ -79,5 +81,15 @@ export class MeetupsService {
 		await meetup.$add('users', user.id);
 
 		return meetup;
+	}
+
+	async getMeetupsPdfFile() {
+		const meetups = await this.meetupsRepository.getAll();
+		const rows = meetups.map(({ name, description }) => [name, description]);
+		return await this.pdfService.generatePdfTableBuffer({
+			title: 'Meetups',
+			headers: ['Name', 'Description'],
+			rows,
+		});
 	}
 }

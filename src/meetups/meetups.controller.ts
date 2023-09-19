@@ -63,4 +63,9 @@ export class MeetupsController {
 	async sign(@Payload('user') user: User, @Payload('dto') dto: SignUserToMeetupDto) {
 		return await this.meetupsService.signUserToMeetup(dto, user);
 	}
+
+	@MessagePattern('meetups/pdf')
+	async getPdf() {
+		return await this.meetupsService.getMeetupsPdfFile();
+	}
 }
