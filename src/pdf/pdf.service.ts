@@ -18,7 +18,6 @@ export class PdfService {
 			doc.table({ title, subtitle: 'List', headers, rows });
 
 			const buffer = [];
-
 			doc.on('data', buffer.push.bind(buffer));
 			doc.on('end', () => {
 				const data = Buffer.concat(buffer);

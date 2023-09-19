@@ -8,7 +8,8 @@ import { UserMeetups } from './user-meetups.model';
 interface MeetupCreationAttrs {
 	name: string;
 	description: string;
-	location: string;
+	latitude: number;
+	longitude: number;
 	date: Date;
 }
 
